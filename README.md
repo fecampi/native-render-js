@@ -1,12 +1,26 @@
 # Native Render JS
 
-Uma biblioteca de UI inspirada no NativeScript, feita para JavaScript/TypeScript puro e web!
+Este projeto é um estudo para a criação de uma biblioteca de UI inspirada no NativeScript, com ideias e conceitos também vindos do Phaser e do CreateJS.
+
+O objetivo é explorar padrões modernos de composição de componentes, layout flexível e integração de controles visuais, focando em modularidade e facilidade de uso para interfaces ricas em TypeScript/JavaScript.
+
+## Principais características
+- Padrão de componentes inspirado no NativeScript
+- Layouts flexíveis e responsivos
+- Modularização e composição explícita
+- Inspiração em engines como Phaser e CreateJS para manipulação visual
+
+## Aviso
+Este repositório é experimental e serve para aprendizado e prototipação.
+
+---
+
 
 ## Instalação
 
 Por enquanto, clone este repositório:
 ```sh
-git clone <url-do-seu-repo>
+git clone git@github.com:fecampi/native-render-js.git
 ```
 
 ## Uso Básico
@@ -36,6 +50,3 @@ App.start(page);
 ## Licença
 MIT
 
----
-
-> Projeto experimental inspirado no NativeScript, mas 100% web e JS puro. Sinta-se livre para contribuir!

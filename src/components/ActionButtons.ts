@@ -1,20 +1,38 @@
 import { StackLayout, Button } from "@native-render/core";
 
-export class ActionButtons extends StackLayout {
-  public skipIntro: Button;
+export class ActionButtons {
+  #layout: StackLayout | undefined;
+  #created = false;
+  private mediaControl: any;
 
-  constructor() {
-    super();
-    this.orientation = "horizontal";
-    this.spacing = 16;
+  constructor(mediaControl: any) {
+    this.mediaControl = mediaControl;
+    this.create();
+  }
 
-    this.skipIntro = new Button("Skip Intro");
-    this.skipIntro.style.backgroundColor = "rgba(0,0,0,0.6)";
-    this.skipIntro.style.color = "#fff";
-    this.skipIntro.style.borderRadius = "24px";
-    this.skipIntro.style.fontSize = "22px";
-    this.skipIntro.style.padding = "16px 40px";
+  create() {
+    if (this.#created) return;
+    const layout = new StackLayout();
+    layout.orientation = "horizontal";
+    layout.spacing = 16;
+  const skipIntro = new Button("Skip Intro");
+  skipIntro.style.backgroundColor = "rgba(0,0,0,0.6)";
+  skipIntro.style.color = "#fff";
+  skipIntro.style.borderRadius = "24px";
+  skipIntro.style.fontSize = "22px";
+  skipIntro.style.padding = "16px 40px";
+  layout.add(skipIntro);
 
-    this.add(this.skipIntro);
+  // Novo botão: Next Episode
+  const nextEpisode = new Button("Next Episode");
+  nextEpisode.style.backgroundColor = "rgba(0,0,0,0.6)";
+  nextEpisode.style.color = "#fff";
+  nextEpisode.style.borderRadius = "24px";
+  nextEpisode.style.fontSize = "22px";
+  nextEpisode.style.padding = "16px 40px";
+  layout.add(nextEpisode);
+    
+    this.mediaControl.middleRegion.add(layout);
+    this.#created = true;
   }
 }

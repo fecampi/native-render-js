@@ -27,13 +27,11 @@ export class Slider extends Component {
       if (options.width !== undefined) this.style.width = options.width;
     }
 
-    // Evento nativo similar ao NativeScript "valueChange"
+    // Emite valueChange em tempo real (input)
     this.element.addEventListener("input", (event: Event) => {
       const input = event.target as HTMLInputElement;
       this._value = Number(input.value);
-      if (this._onValueChange) {
-        this._onValueChange(this._value);
-      }
+      this.emit("valueChange", this._value);
     });
 
     // Estilo padrão parecido com NativeScript
@@ -82,6 +80,12 @@ export class Slider extends Component {
   on(eventName: "valueChange", callback: (value: number) => void) {
     if (eventName === "valueChange") {
       this._onValueChange = callback;
+    }
+  }
+
+  emit(eventName: string, value: any) {
+    if (eventName === "valueChange" && this._onValueChange) {
+      this._onValueChange(value);
     }
   }
 }

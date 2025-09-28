@@ -1,34 +1,70 @@
 import { StackLayout } from "@native-render/core";
-import { TopRegion } from "./TopRegion";
-import { MiddleRegion } from "./MiddleRegion";
-import { BottomRegion } from "./BottomRegion";
 
-export class MediaControl extends StackLayout {
-  public topRegion: TopRegion;
-  public middleRegion: MiddleRegion;
-  public bottomRegion: BottomRegion;
+export class MediaControl {
+  static #instance: MediaControl;
+  #layout!: StackLayout;
+  #created = false;
+  topRegion!: StackLayout;
+  middleRegion!: StackLayout;
+  bottomRegion!: StackLayout;
 
-  constructor() {
-    super();
-    this.orientation = "vertical";
-    this.horizontalAlignment = "center";
-    this.verticalAlignment = "center";
-    this.spacing = 24;
-    this.padding = 32;
-    this.style.backgroundColor = "#111";
-    this.style.borderRadius = "16px";
-    this.style.width = "1280px";
-    this.style.height = "720px";
-    this.style.minHeight = "100vh";
-    this.style.justifyContent = "center";
-    this.style.alignItems = "center";
+  private constructor() {
+    this.create();
+  }
 
-    this.topRegion = new TopRegion();
-    this.middleRegion = new MiddleRegion();
-    this.bottomRegion = new BottomRegion();
+  static getInstance() {
+    if (!MediaControl.#instance) {
+      MediaControl.#instance = new MediaControl();
+    }
+    return MediaControl.#instance;
+  }
 
-    this.add(this.topRegion);
-    this.add(this.middleRegion);
-    this.add(this.bottomRegion);
+  create() {
+    if (this.#created) return;
+    this.#layout = new StackLayout();
+    this.#layout.orientation = "vertical";
+    this.#layout.horizontalAlignment = "center";
+    this.#layout.verticalAlignment = "center";
+    this.#layout.spacing = 16;
+    this.#layout.padding = 16;
+    this.#layout.style.backgroundColor = "#111";
+    this.#layout.style.justifyContent = "center";
+    this.#layout.style.alignItems = "center";
+    this.#layout.style.width = "100%";
+    this.#layout.style.height = "100%";
+    this.#layout.style.minHeight = "100%";
+
+    // Top Region
+    this.topRegion = new StackLayout();
+    this.topRegion.orientation = "vertical";
+    this.topRegion.horizontalAlignment = "left";
+    this.topRegion.style.width = "100%";
+    this.topRegion.style.height = "25%";
+    this.#layout.add(this.topRegion);
+
+    // Middle Region
+    this.middleRegion = new StackLayout();
+    this.middleRegion.orientation = "vertical";
+    this.middleRegion.style.width = "100%";
+    this.middleRegion.style.height = "50%";
+    this.#layout.add(this.middleRegion);
+
+    // Bottom Region
+    this.bottomRegion = new StackLayout();
+    this.bottomRegion.orientation = "horizontal";
+    this.bottomRegion.style.width = "100%";
+    this.bottomRegion.style.height = "25%";
+    this.bottomRegion.horizontalAlignment = "left";
+    this.#layout.add(this.bottomRegion);
+
+    this.#created = true;
+  }
+
+  getStackLayout() {
+    return this.#layout;
+  }
+
+  public add(child: any) {
+    this.#layout.add(child);
   }
 }
