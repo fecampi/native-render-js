@@ -1,30 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "useDefineForClassFields": true,
+    "outDir": "dist",
+    "declaration": true,
+    "declarationDir": "dist",
     "module": "ESNext",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["vite/client"],
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-
-    /* Linting */
+    "target": "ES2017",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@native-render/core": ["core/index.ts"]
-    }
+    "skipLibCheck": true,
+    "rootDir": "src"
   },
-  "include": ["src"]
+  "include": ["src/**/*"]
 }

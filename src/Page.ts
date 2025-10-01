@@ -17,12 +17,8 @@ export class Page extends Component {
     this.element.classList.add("page");
   }
 
-  setContent(child: Component) {
+  set content(child: Component) {
     this.element.appendChild(child.element);
     focusTreeService.setup(child.element);
-
-  // Cria e imprime o objeto mostrando o pai de cada botão ns-button
-  const buttonParentMap = getButtonParentMap(this.element);
-  console.log('Árvore de botões ns-button (id: pai):', buttonParentMap);
   }
 }

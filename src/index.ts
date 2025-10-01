@@ -1,4 +1,4 @@
-export { App } from "./App";
+export { Application } from "./Application";
 export { Page } from "./Page";
 export { StackLayout } from "./StackLayout";
 export { Text } from "./Text";

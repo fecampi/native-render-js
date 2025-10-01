@@ -1,24 +1,21 @@
 {
-  "name": "native-render-js",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "native-render-core",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+  "build": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --sourcemap && tsc --emitDeclarationOnly --declaration --declarationDir dist && dts-bundle-generator -o dist/index.d.ts src/index.ts"
   },
-  "devDependencies": {
-    "typescript": "~5.8.3",
-    "vite": "^7.1.7"
-  },
-  "author": "Felipe Campinho <felipe.campinho@hotmail.com>",
+  "author": "Seu Nome",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/felipe-campinho/native-render-js.git"
-  },
-  "dependencies": {
-    "native-render-core": "file:packages/native-render-core"
+  "devDependencies": {
+    "dts-bundle-generator": "^9.5.1",
+    "esbuild": "^0.25.10"
   }
 }

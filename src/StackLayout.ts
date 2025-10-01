@@ -214,7 +214,7 @@ export class StackLayout extends Component {
   }
 
   // Métodos para gerenciar filhos
-  add(child: Component) {
+  addChild(child: Component) {
     this._children.push(child);
     this.element.appendChild(child.element);
     return this;
