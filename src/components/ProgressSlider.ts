@@ -1,4 +1,4 @@
-import { Slider, StackLayout, Text } from "@native-render/core";
+import { Slider, StackLayout, Text } from "native-render-core";
 
 export class ProgressSlider {
   public mediaControl: any;
@@ -22,9 +22,9 @@ export class ProgressSlider {
       this.updateTimes(percent, currentTime, remainingTime);
     });
 
-    layout.add(currentTime);
-    layout.add(remainingTime);
-    layout.add(progressSlider);
+  layout.add(currentTime);
+  layout.add(progressSlider);
+  layout.add(remainingTime);
 
     this.mediaControl.bottomRegion.add(layout);
   }

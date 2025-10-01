@@ -1,4 +1,4 @@
-import { StackLayout } from "@native-render/core";
+import { StackLayout } from "native-render-core";
 
 export class MediaControl {
   static #instance: MediaControl;
@@ -34,22 +34,22 @@ export class MediaControl {
     this.#layout.style.height = "100%";
     this.#layout.style.minHeight = "100%";
 
-    // Top Region
+    // Top Region (50%)
     this.topRegion = new StackLayout();
-    this.topRegion.orientation = "vertical";
+    this.topRegion.orientation == "horizontal";
     this.topRegion.horizontalAlignment = "left";
     this.topRegion.style.width = "100%";
-    this.topRegion.style.height = "25%";
+    this.topRegion.style.height = "50%";
     this.#layout.add(this.topRegion);
 
-    // Middle Region
+    // Middle Region (25%)
     this.middleRegion = new StackLayout();
-    this.middleRegion.orientation = "vertical";
+    this.middleRegion.orientation = "horizontal";
     this.middleRegion.style.width = "100%";
-    this.middleRegion.style.height = "50%";
+    this.middleRegion.style.height = "25%";
     this.#layout.add(this.middleRegion);
 
-    // Bottom Region
+    // Bottom Region (25%)
     this.bottomRegion = new StackLayout();
     this.bottomRegion.orientation = "horizontal";
     this.bottomRegion.style.width = "100%";

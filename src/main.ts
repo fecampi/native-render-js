@@ -1,8 +1,8 @@
-import { App, Page } from "@native-render/core";
+import { App, Page } from "native-render-core";
 import { MediaControl } from "./components/MediaControl";
 import { InfoLayout } from "./components/InfoLayout";
 import { ActionButtons } from "./components/ActionButtons";
-import { Settings} from "./components/SettingsControls";
+import { Settings } from "./components/SettingsControls";
 import { PlayPauseButton } from "./components/PlayPauseButton";
 import { ProgressSlider } from "./components/ProgressSlider";
 

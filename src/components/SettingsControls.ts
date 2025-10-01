@@ -1,4 +1,4 @@
-import { Button } from "@native-render/core";
+import { Button } from "native-render-core";
 
 export class Settings {
   public mediaControl: any;
@@ -10,13 +10,11 @@ export class Settings {
 
   create() {
     const volumeBtn = new Button("Volume");
-    volumeBtn.style.backgroundColor = "transparent";
+    volumeBtn.style.backgroundColor = "rgba(0,0,0,0.6)";
     volumeBtn.style.color = "#fff";
-    volumeBtn.style.fontSize = "22px";
-    volumeBtn.style.borderRadius = "50%";
-    volumeBtn.style.width = "56px";
-    volumeBtn.style.height = "56px";
-    volumeBtn.style.padding = "0";
+    volumeBtn.style.borderRadius = "1.5em";
+    volumeBtn.style.fontSize = "1.4rem";
+    volumeBtn.style.padding = "1em 2.5em";
     this.mediaControl.bottomRegion.add(volumeBtn);
   }
 }

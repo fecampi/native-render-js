@@ -11,12 +11,14 @@
   "devDependencies": {
     "typescript": "~5.8.3",
     "vite": "^7.1.7"
-  }
-  ,
+  },
   "author": "Felipe Campinho <felipe.campinho@hotmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/felipe-campinho/native-render-js.git"
+  },
+  "dependencies": {
+    "native-render-core": "file:packages/native-render-core"
   }
 }

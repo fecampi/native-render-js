@@ -1,4 +1,4 @@
-import { StackLayout, Text } from "@native-render/core";
+import { StackLayout, Text } from "native-render-core";
 
 export class MediaControlPlugin {
   protected mediaControl: any;
@@ -36,6 +36,6 @@ export class InfoLayout extends MediaControlPlugin {
     showTitle.style.textAlign = "left";
     layout.add(seasonInfo);
     layout.add(showTitle);
-    this.mediaControl.topRegion.add(layout);
+    this.mediaControl.middleRegion.add(layout);
   }
 }
