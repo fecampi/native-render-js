@@ -13,33 +13,43 @@ export class Slider extends Component {
   private _maxValue: number = 100;
   private _value: number = 0;
   private _step: number = 1;
+  private _onValueChange?: (args: { object: { value: number } }) => void;
 
   constructor(options?: SliderOptions) {
     super("input");
-    this.element.setAttribute("type", "range"); // HTML range
+    const inputElement = this.element as HTMLInputElement;
+    inputElement.setAttribute("type", "range");
+
+    // Definir valores padrão no elemento HTML
+    inputElement.setAttribute("min", "0");
+    inputElement.setAttribute("max", "100");
+    inputElement.setAttribute("step", "1");
+    inputElement.value = "0";
 
     // Aplicar opções se fornecidas
     if (options) {
       if (options.minValue !== undefined) this.minValue = options.minValue;
       if (options.maxValue !== undefined) this.maxValue = options.maxValue;
-      if (options.value !== undefined) this.value = options.value;
       if (options.step !== undefined) this.step = options.step;
+      if (options.value !== undefined) {
+        console.log("🔧 Setting initial value to:", options.value);
+        this.value = options.value;
+      }
       if (options.width !== undefined) this.style.width = options.width;
     }
 
+
     // Emite valueChange em tempo real (input)
-    this.element.addEventListener("input", (event: Event) => {
-      const input = event.target as HTMLInputElement;
-      this._value = Number(input.value);
-      this.emit("valueChange", this._value);
+    inputElement.addEventListener("input", () => {
+      this._value = Number(inputElement.value);
+      this.emit("valueChange");
     });
 
-    // Estilo padrão parecido com NativeScript
+    // Estilo padrão
     this.style.width = "100%";
     this.style.cursor = "pointer";
   }
 
-  // Getter/Setter para minValue
   get minValue(): number {
     return this._minValue;
   }
@@ -48,7 +58,6 @@ export class Slider extends Component {
     this.element.setAttribute("min", String(value));
   }
 
-  // Getter/Setter para maxValue
   get maxValue(): number {
     return this._maxValue;
   }
@@ -57,16 +66,14 @@ export class Slider extends Component {
     this.element.setAttribute("max", String(value));
   }
 
-  // Getter/Setter para value
   get value(): number {
     return this._value;
   }
-  set value(val: number) {
+  set value(val: number) {;
     this._value = val;
     (this.element as HTMLInputElement).value = String(val);
   }
 
-  // Getter/Setter para step
   get step(): number {
     return this._step;
   }
@@ -75,17 +82,19 @@ export class Slider extends Component {
     this.element.setAttribute("step", String(val));
   }
 
-  // Evento valueChange
-  private _onValueChange?: (value: number) => void;
-  on(eventName: "valueChange", callback: (value: number) => void) {
+  on(
+    eventName: "valueChange",
+    callback: (args: { object: { value: number } }) => void
+  ): void {
     if (eventName === "valueChange") {
       this._onValueChange = callback;
     }
   }
 
-  emit(eventName: string, value: any) {
+  private emit(eventName: string): void {
     if (eventName === "valueChange" && this._onValueChange) {
-      this._onValueChange(value);
+      const args = { object: { value: this._value } };
+      this._onValueChange(args);
     }
   }
 }

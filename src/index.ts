@@ -4,3 +4,5 @@ export { StackLayout } from "./StackLayout";
 export { Text } from "./Text";
 export { Button } from "./Button";
 export { Slider } from "./Slider";
+export { Video } from "./Video";
+export { AbsoluteLayout } from "./AbsoluteLayout";
