@@ -13,33 +13,32 @@ export class Button extends Component {
     if (text) {
       this.text = text;
     }
-
-    // Aplicar estilos padrão similar ao NativeScript
-    this.applyDefaultStyles();
   }
 
   private applyDefaultStyles(): void {
-    const style = this.element.style;
-    style.padding = "12px 16px";
-    style.border = "none";
-    style.borderRadius = "4px";
-    style.backgroundColor = "#2196F3";
-    style.color = "white";
-    style.fontSize = "16px";
-    style.cursor = "pointer";
-    style.fontFamily = "system-ui, -apple-system, sans-serif";
-    style.fontWeight = "500";
-    style.textAlign = "center";
+    // Só aplica estilos padrão se o botão tiver apenas a classe "ns-button"
+    if (this.element.className === "ns-button") {
+      console.log("[Button] Aplicando estilos padrão", this.element);
+      const style = this.element.style;
+      style.padding = "12px 16px";
+      style.border = "none";
+      style.borderRadius = "4px";
+      style.backgroundColor = "#2196F3";
+      style.color = "white";
+      style.fontSize = "16px";
+      style.cursor = "pointer";
+      style.fontFamily = "system-ui, -apple-system, sans-serif";
+      style.fontWeight = "500";
+      style.textAlign = "center";
 
-    // ⚡️ igual NativeScript: tamanho baseado no conteúdo
-    style.display = "inline-block";
-    style.width = "auto";
-    style.height = "auto";
+      // ⚡️ igual NativeScript: tamanho baseado no conteúdo
+      style.display = "inline-block";
+      style.width = "auto";
+      style.height = "auto";
 
-    style.minWidth = "64px"; // mesmo padrão do NS em Android Material
-    style.transition = "all 0.2s ease";
-
-
+      style.minWidth = "64px"; // mesmo padrão do NS em Android Material
+      style.transition = "all 0.2s ease";
+    }
   }
 
   // ---- Propriedades (API NS) ----
@@ -99,12 +98,14 @@ export class Button extends Component {
   }
 
   setBorderRadius(radius: number | string): Button {
-    this.element.style.borderRadius = typeof radius === "number" ? `${radius}px` : radius;
+    this.element.style.borderRadius =
+      typeof radius === "number" ? `${radius}px` : radius;
     return this;
   }
 
   setPadding(padding: number | string): Button {
-    this.element.style.padding = typeof padding === "number" ? `${padding}px` : padding;
+    this.element.style.padding =
+      typeof padding === "number" ? `${padding}px` : padding;
     return this;
   }
 
@@ -173,6 +174,8 @@ export class Button extends Component {
   }
 
   get nativeView(): HTMLButtonElement {
+    // Aplicar estilos padrão similar ao NativeScript
+    this.applyDefaultStyles();
     return this.element as HTMLButtonElement;
   }
 }

@@ -27,8 +27,9 @@ git clone git@github.com:fecampi/native-render-js.git
 
 ## Exemplos de uso
 
+
 ```typescript
-import { Application, Page, StackLayout, Text, Button, Slider, Video }  from "native-render-core";
+import { Application, Page, StackLayout, Text, Button, Slider, Video, AbsoluteLayout } from "native-render-core";
 
 // Layout vertical simples
 const layout = new StackLayout();
@@ -38,29 +39,29 @@ layout.addChild(new Button("Clique aqui"));
 
 // Player de vídeo com controles sobrepostos
 const absLayout = new AbsoluteLayout();
-absLayout.element.style.width = "1280px";
-absLayout.element.style.height = "720px";
-absLayout.element.style.background = "#000";
+absLayout.width = 1280;
+absLayout.height = 720;
+absLayout.backgroundColor = "#000";
 
 const video = new Video();
 video.src = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-video.style.width = "1280px";
-video.style.height = "720px";
-AbsoluteLayout.setLeft(video, "0");
-AbsoluteLayout.setTop(video, "0");
+video.width = 1280;
+video.height = 720;
+AbsoluteLayout.setLeft(video, 0);
+AbsoluteLayout.setTop(video, 0);
 absLayout.addChild(video);
 
 const controls = new StackLayout();
 controls.orientation = "horizontal";
-AbsoluteLayout.setLeft(controls, "50%");
-AbsoluteLayout.setTop(controls, "640px");
-controls.element.style.transform = "translateX(-50%)";
+// Exemplo: posicionar controles na parte inferior central
+AbsoluteLayout.setLeft(controls, 0);
+AbsoluteLayout.setTop(controls, 640);
 controls.addChild(new Button("▶"));
 controls.addChild(new Slider());
 absLayout.addChild(controls);
-
+```
 const page = new Page();
-page.content = absLayout.element;
+page.content = absLayout;
 Application.run({ create: () => page });
 ```
 

@@ -32,6 +32,18 @@ export class Application {
     document.body.appendChild(page.element);
   }
 
+  // Carrega um arquivo CSS externo dinamicamente
+  static addCssFile(path: string) {
+    console.log(`Carregando CSS: ${path}`);
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = path;
+    link.onload = () => console.log(`CSS carregado com sucesso: ${path}`);
+    link.onerror = () => console.error(`Erro ao carregar CSS: ${path}`);
+    document.head.appendChild(link);
+  }
+
   static run({ create }: { create: () => Page }) {
     const page = create();
     this.start(page);
