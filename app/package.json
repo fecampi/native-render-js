@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "player": "vite --open player.html",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

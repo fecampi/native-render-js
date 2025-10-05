@@ -16,42 +16,47 @@ Application.addCssFile("../app.css");
 const PLAYER_WIDTH = 1280;
 const PLAYER_HEIGHT = 720;
 
-// Layout absoluto principal
-const absLayout = new AbsoluteLayout();
-absLayout.width = PLAYER_WIDTH;
-absLayout.height = PLAYER_HEIGHT;
-absLayout.backgroundColor = "#000";
-
-// Componente de vídeo
+// Componente de vídeo (filho direto do root)
 const video = new Video();
 video.src = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 video.autoplay = false;
 video.controls = false;
 video.className = "video";
-absLayout.addChild(video);
+video.width = PLAYER_WIDTH;
+video.height = PLAYER_HEIGHT;
 
+// Layout absoluto para os controles (mediaControl)
+const mediaControl = new AbsoluteLayout();
+mediaControl.width = PLAYER_WIDTH;
+mediaControl.height = PLAYER_HEIGHT;
+mediaControl.className = "media-control";
 
+// Botão de play centralizado estilo YouTube
+const centerPlayBtn = new Button("▶");
+centerPlayBtn.className = "center-play-btn";
+centerPlayBtn.element.setAttribute('draggable', 'false');
+
+centerPlayBtn.on("tap", togglePlay);
+mediaControl.addChild(centerPlayBtn);
 
 // Menu mockado ocupando toda a altura
 const settingsMenu = new StackLayout();
 settingsMenu.orientation = "vertical";
 settingsMenu.className = "mock-settings-menu";
 
-
 // Botão fechar (X)
 const closeBtn = new Text("✕");
 closeBtn.className = "mock-close-btn";
 closeBtn.element.onclick = () => {
   settingsMenu.element.style.display = "none";
-  if (!absLayout.element.contains(controlsOverlay.element)) {
-    absLayout.addChild(controlsOverlay);
+  if (!mediaControl.element.contains(controlsOverlay.element)) {
+    mediaControl.addChild(controlsOverlay);
   }
-  if (absLayout.element.contains(settingsMenu.element)) {
-    absLayout.element.removeChild(settingsMenu.element);
+  if (mediaControl.element.contains(settingsMenu.element)) {
+    mediaControl.element.removeChild(settingsMenu.element);
   }
 };
 settingsMenu.addChild(closeBtn);
-
 
 // Legenda
 const legendTitle = new Text("Legenda");
@@ -69,7 +74,6 @@ legendLabel.className = "mock-menu-label";
 legendItem.addChild(legendLabel);
 settingsMenu.addChild(legendItem);
 
-
 // Áudio
 const audioTitle = new Text("Áudio");
 audioTitle.className = "mock-menu-title";
@@ -86,8 +90,6 @@ audioLabel.className = "mock-menu-label";
 audioItem.addChild(audioLabel);
 settingsMenu.addChild(audioItem);
 
-
-
 // Overlay de controles
 const controlsOverlay = new StackLayout();
 controlsOverlay.orientation = "vertical";
@@ -101,9 +103,14 @@ progressSlider.value = 0;
 progressSlider.step = 0.1;
 progressSlider.className = "progress-slider";
 
+// Container principal dos controles (barra + progresso)
+const controlsContainer = new StackLayout();
+controlsContainer.orientation = "vertical";
+controlsContainer.className = "controls-container";
+
 // Barra de progresso visual (fina + grossa)
 const progressBarContainer = new AbsoluteLayout();
-progressBarContainer.element.style.width = "100%";
+progressBarContainer.className = "progress-bar-container";
 progressBarContainer.element.style.height = "16px";
 progressBarContainer.element.style.position = "relative";
 progressBarContainer.element.style.marginBottom = "8px";
@@ -117,129 +124,136 @@ progressTrack.element.style.top = "50%";
 progressTrack.element.style.transform = "translateY(-50%)";
 progressTrack.element.style.width = "100%";
 progressTrack.element.style.height = "3px";
+progressTrack.element.style.background = "#f5f5f5";
+progressTrack.element.style.borderRadius = "4px";
+progressTrack.element.style.zIndex = "1";
+
 progressBarContainer.addChild(progressTrack);
 
 // Barra de progresso grossa branca
 const progressFill = new StackLayout();
 progressFill.className = "progress-fill";
-progressFill.element.style.position = "absolute";
-progressFill.element.style.left = "0";
-progressFill.element.style.top = "50%";
-progressFill.element.style.transform = "translateY(-50%)";
-progressFill.element.style.height = "8px";
-progressFill.element.style.width = "0%";
+
 progressBarContainer.addChild(progressFill);
 
 // Thumb visual (círculo)
 const progressThumb = new StackLayout();
 progressThumb.className = "progress-thumb";
-progressThumb.element.style.position = "absolute";
-progressThumb.element.style.top = "50%";
-progressThumb.element.style.transform = "translateY(-50%)";
-progressThumb.element.style.width = "18px";
-progressThumb.element.style.height = "18px";
-progressThumb.element.style.borderRadius = "50%";
-progressThumb.element.style.background = "#fff";
-progressThumb.element.style.boxShadow = "0 1px 4px rgba(0,0,0,0.15)";
-progressThumb.element.style.border = "2px solid #fff";
-progressThumb.element.style.zIndex = "3";
+
 progressBarContainer.addChild(progressThumb);
 
 // Slider transparente por cima
 progressSlider.className += " progress-slider-overlay";
 progressBarContainer.addChild(progressSlider);
 
-controlsOverlay.addChild(progressBarContainer);
+controlsContainer.addChild(progressBarContainer);
 
 // Barra de controles
 const controlsBar = new StackLayout();
 controlsBar.orientation = "horizontal";
 controlsBar.className = "controls-bar";
+controlsContainer.addChild(controlsBar);
 
-// Botão play/pause
+// Grupo de controles à esquerda (play + tempo)
+const leftControlsGroup = new StackLayout();
+leftControlsGroup.orientation = "horizontal";
+leftControlsGroup.className = "controls-group left-controls-group";
+
 const playPauseBtn = new Button("▶");
 playPauseBtn.className = "play-pause-btn";
-controlsBar.addChild(playPauseBtn);
+playPauseBtn.element.setAttribute('draggable', 'false');
 
-// Container de tempo
+leftControlsGroup.addChild(playPauseBtn);
+
 const timeContainer = new StackLayout();
 timeContainer.orientation = "horizontal";
 timeContainer.className = "time-container";
 
-const currentTimeText = new Text("0:01");
+const currentTimeText = new Text("0:00");
 currentTimeText.className = "time-text";
 timeContainer.addChild(currentTimeText);
 
-const sepText = new Text("/");
+const sepText = new Text("  /  ");
 sepText.className = "time-text";
 timeContainer.addChild(sepText);
 
-const durationText = new Text("11:21");
+const durationText = new Text("00:00");
 durationText.className = "time-text";
 timeContainer.addChild(durationText);
 
-controlsBar.addChild(timeContainer);
+leftControlsGroup.addChild(timeContainer);
+controlsBar.addChild(leftControlsGroup);
 
 // Botão de volume
 const volumeBtn = new Button("\uf028"); // FontAwesome: volume-up
 volumeBtn.className = "volume-btn icon-fa";
-controlsBar.addChild(volumeBtn);
+volumeBtn.element.setAttribute('draggable', 'false');
+volumeBtn.element.style.userSelect = 'none';
+volumeBtn.element.style.pointerEvents = 'auto';
 
 // Slider de volume (inicialmente oculto)
 const volumeSlider = new Slider();
 volumeSlider.minValue = 0;
 volumeSlider.maxValue = 1;
-volumeSlider.value = 0.5;
+volumeSlider.value = 1;
 volumeSlider.step = 0.01;
-volumeSlider.className = "volume-slider";
-volumeSlider.element.style.display = "none";
-controlsBar.addChild(volumeSlider);
-
-// Mostra/oculta slider ao clicar no botão de volume
-let volumeSliderVisible = false;
-volumeBtn.on("tap", () => {
-  volumeSliderVisible = !volumeSliderVisible;
-  volumeSlider.element.style.display = volumeSliderVisible ? "inline-block" : "none";
+volumeSlider.className = "volume-slider oculto";
+// Atualiza volume do vídeo e barra visual ao alterar o slider
+volumeSlider.on("valueChange", () => {
+  const vid = video.element as HTMLVideoElement;
+  vid.volume = volumeSlider.value;
+  // Atualiza a largura da barra branca
+  const percent = Math.round(volumeSlider.value * 100);
+  (volumeSlider.element as HTMLElement).style.setProperty('--progress', percent + '%');
 });
+// Inicializa barra visual do volume
+(volumeSlider.element as HTMLElement).style.setProperty('--progress', '100%');
 
-// Esconde slider ao clicar fora dele
-window.addEventListener("mousedown", (e) => {
-  if (
-    volumeSliderVisible &&
-    !volumeSlider.element.contains(e.target as Node) &&
-    !volumeBtn.element.contains(e.target as Node)
-  ) {
-    volumeSlider.element.style.display = "none";
-    volumeSliderVisible = false;
-  }
-});
-
-// Atualiza volume do vídeo e ícone
-volumeSlider.on("valueChange", (val) => {
-  const value = Math.max(0, Math.min(1, val.object.value));
-  (video.element as HTMLVideoElement).volume = value;
-  volumeBtn.text = value === 0 ? "\uf026" : "\uf028"; // fa-volume-mute : fa-volume-up
-});
-
-// Inicializa volume
-(video.element as HTMLVideoElement).volume = 0.5;
+// Agrupador para botões à direita
+const controlsGroup = new StackLayout();
+controlsGroup.orientation = "horizontal";
+controlsGroup.className = "controls-group";
+controlsGroup.addChild(volumeBtn);
+controlsGroup.addChild(volumeSlider);
 
 // Botão de configurações
 const settingsBtn = new Button("\uf013"); // FontAwesome: cog
 settingsBtn.className = "settings-btn icon-fa";
-controlsBar.addChild(settingsBtn);
+settingsBtn.element.setAttribute('draggable', 'false');
+
 
 // Botão de tela cheia
 const fullscreenBtn = new Button("\uf065"); // FontAwesome: expand
 fullscreenBtn.className = "fullscreen-btn icon-fa";
-controlsBar.addChild(fullscreenBtn);
+fullscreenBtn.element.setAttribute('draggable', 'false');
 
-controlsOverlay.addChild(controlsBar);
-absLayout.addChild(controlsOverlay);
+controlsGroup.addChild(settingsBtn);
+controlsGroup.addChild(fullscreenBtn);
+controlsBar.addChild(controlsGroup);
+
+controlsOverlay.addChild(controlsContainer);
+mediaControl.addChild(controlsOverlay);
 
 // Estado do player
 let isPlaying = false;
 
+function updateCenterPlayBtn() {
+  if (isPlaying) {
+    centerPlayBtn.element.style.display = 'none';
+    playPauseBtn.element.style.display = 'flex';
+    // Garante que os controles estão na árvore
+    if (!mediaControl.element.contains(controlsOverlay.element)) {
+      mediaControl.addChild(controlsOverlay);
+    }
+  } else {
+    centerPlayBtn.element.style.display = 'flex';
+    playPauseBtn.element.style.display = 'none';
+    // Remove os controles da árvore
+    if (mediaControl.element.contains(controlsOverlay.element)) {
+      mediaControl.element.removeChild(controlsOverlay.element);
+    }
+  }
+}
 
 // Formatar tempo
 function formatTime(seconds: number): string {
@@ -251,6 +265,8 @@ function formatTime(seconds: number): string {
 // Atualizar UI
 function updatePlayUI() {
   playPauseBtn.text = isPlaying ? "❚❚" : "▶";
+  centerPlayBtn.text = isPlaying ? "❚❚" : "▶";
+  updateCenterPlayBtn();
 }
 
 function updateProgressUI() {
@@ -280,24 +296,61 @@ function togglePlay() {
   updatePlayUI();
 }
 
-
 // Função para abrir o menu de configurações
 function openSettings() {
-  if (absLayout.element.contains(controlsOverlay.element)) {
-    absLayout.element.removeChild(controlsOverlay.element);
+  if (mediaControl.element.contains(controlsOverlay.element)) {
+    mediaControl.element.removeChild(controlsOverlay.element);
   }
-  if (!absLayout.element.contains(settingsMenu.element)) {
-    absLayout.addChild(settingsMenu);
+  if (!mediaControl.element.contains(settingsMenu.element)) {
+    mediaControl.addChild(settingsMenu);
   }
   (settingsMenu.element as HTMLElement).style.display = "flex";
 }
+
+// Função para alternar tela cheia e ajustar tamanho do player
+function setPlayerFullscreen(isFullscreen: boolean) {
+  if (isFullscreen) {
+    root.width = window.innerWidth;
+    root.height = window.innerHeight;
+    root.element.style.width = '100vw';
+    root.element.style.height = '100vh';
+    mediaControl.width = window.innerWidth;
+    mediaControl.height = window.innerHeight;
+    mediaControl.element.style.width = '100vw';
+    mediaControl.element.style.height = '100vh';
+    video.element.style.width = '100vw';
+    video.element.style.height = '100vh';
+    fullscreenBtn.text = "\uf066"; // fa-compress
+  } else {
+    root.width = PLAYER_WIDTH;
+    root.height = PLAYER_HEIGHT;
+    root.element.style.width = PLAYER_WIDTH + 'px';
+    root.element.style.height = PLAYER_HEIGHT + 'px';
+    mediaControl.width = PLAYER_WIDTH;
+    mediaControl.height = PLAYER_HEIGHT;
+    mediaControl.element.style.width = PLAYER_WIDTH + 'px';
+    mediaControl.element.style.height = PLAYER_HEIGHT + 'px';
+    video.element.style.width = PLAYER_WIDTH + 'px';
+    video.element.style.height = PLAYER_HEIGHT + 'px';
+    fullscreenBtn.text = "\uf065"; // fa-expand
+  }
+}
+
+document.addEventListener('fullscreenchange', () => {
+  const isFull = !!document.fullscreenElement;
+  setPlayerFullscreen(isFull);
+  if (!isFull) {
+    // Força reflow para garantir que o layout volte ao normal
+    mediaControl.element.offsetHeight;
+  }
+});
 
 // Eventos
 playPauseBtn.on("tap", togglePlay);
 settingsBtn.on("tap", openSettings);
 
 fullscreenBtn.on("tap", () => {
-  const elem = absLayout.element as HTMLElement;
+  const elem = root.element as HTMLElement;
   if (!document.fullscreenElement) {
     elem.requestFullscreen();
   } else {
@@ -307,9 +360,13 @@ fullscreenBtn.on("tap", () => {
 
 progressSlider.on("valueChange", (val) => {
   const vid = video.element as HTMLVideoElement;
+  const sliderValue = val.object.value;
+  // Atualiza barra visual e thumb imediatamente
+  progressFill.element.style.width = sliderValue + "%";
+  progressThumb.element.style.left = `calc(${sliderValue}% - 9px)`;
   if (vid.duration) {
-    vid.currentTime = (val.object.value / 100) * vid.duration;
-    updateProgressUI();
+    vid.currentTime = (sliderValue / 100) * vid.duration;
+    // updateProgressUI(); // Não chame aqui, pois já atualizamos visualmente
   }
 });
 
@@ -325,10 +382,35 @@ vidEl.addEventListener("pause", () => {
   isPlaying = false;
   updatePlayUI();
 });
+// Inicializa visibilidade do botão central
+updateCenterPlayBtn();
+
+// Mostra/oculta slider ao clicar no botão de volume
+let volumeSliderVisible = false;
+volumeBtn.on("tap", () => {
+  volumeSliderVisible = !volumeSliderVisible;
+  if (volumeSliderVisible) {
+    volumeSlider.className = "volume-slider";
+  } else {
+    volumeSlider.className = "volume-slider oculto";
+  }
+});
+
+// Esconde slider ao clicar fora dele
+window.addEventListener("mousedown", (e) => {
+  if (
+    volumeSliderVisible &&
+    !volumeSlider.element.contains(e.target as Node) &&
+    !volumeBtn.element.contains(e.target as Node)
+  ) {
+    volumeSlider.className = "volume-slider oculto";
+    volumeSliderVisible = false;
+  }
+});
 
 // Auto-hide controles
 let hideControlsTimeout: any;
-absLayout.element?.addEventListener("mousemove", () => {
+mediaControl.element?.addEventListener("mousemove", () => {
   (controlsOverlay.element as HTMLElement).style.opacity = "1";
   clearTimeout(hideControlsTimeout);
   hideControlsTimeout = setTimeout(() => {
@@ -338,12 +420,14 @@ absLayout.element?.addEventListener("mousemove", () => {
   }, 3000);
 });
 
-// ROOT
-const root = new StackLayout();
+// ROOT - AbsoluteLayout para sobrepor os elementos
+const root = new AbsoluteLayout();
 root.className = "root";
-root.addChild(absLayout);
-
-
+root.width = PLAYER_WIDTH;
+root.height = PLAYER_HEIGHT;
+root.backgroundColor = "#000";
+root.addChild(video);
+root.addChild(mediaControl);
 
 // Botão de configurações abre o menu
 settingsBtn.on("tap", openSettings);

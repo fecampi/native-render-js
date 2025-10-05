@@ -6,6 +6,8 @@ export class Video extends Component {
   private _controls: boolean = true;
   private _loop: boolean = false;
   private _muted: boolean = false;
+  private _width: number | string = "auto";
+  private _height: number | string = "auto";
 
   constructor(src: string = "") {
     super("video");
@@ -62,6 +64,26 @@ export class Video extends Component {
     this._muted = value;
     (this.element as HTMLVideoElement).muted = value;
     console.log("[Video] muted:", value);
+  }
+
+  // ✅ Largura
+  get width(): number | string {
+    return this._width;
+  }
+  set width(value: number | string) {
+    this._width = value;
+    this.setStyle("width", typeof value === "number" ? `${value}px` : value);
+    console.log("[Video] width definido:", value);
+  }
+
+  // ✅ Altura
+  get height(): number | string {
+    return this._height;
+  }
+  set height(value: number | string) {
+    this._height = value;
+    this.setStyle("height", typeof value === "number" ? `${value}px` : value);
+    console.log("[Video] height definido:", value);
   }
 
   // ✅ Métodos estilo NativeScript
