@@ -1,7 +1,7 @@
 import { NativeScriptConfig } from '@nativescript/core';
 
 export default {
-  id: 'org.nativescript.VideoPlayerStudy',
+  id: 'org.nativescript.NativeRenderJs',
   appPath: 'app',
   appResourcesPath: 'App_Resources',
   webpackConfigPath: 'webpack.config.cjs',

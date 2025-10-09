@@ -4,3 +4,77 @@
 Button.-primary {
   font-size: 18;
 }
+
+/* Estilos do Menu */
+.menu-list {
+  background-color: white;
+}
+
+.menu-item {
+  padding: 16;
+  border-bottom-width: 1;
+  border-bottom-color: #e0e0e0;
+  background-color: white;
+}
+
+.menu-title {
+  font-size: 18;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4;
+}
+
+.menu-description {
+  font-size: 14;
+  color: #666;
+}
+
+/* Estilos das páginas de exemplo */
+.section-title {
+  font-size: 20;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16;
+  margin-top: 8;
+}
+
+.demo-button {
+  margin-bottom: 12;
+  padding: 12;
+  border-radius: 6;
+  font-size: 16;
+}
+
+.large-button {
+  font-size: 20;
+  padding: 16;
+  margin-bottom: 12;
+}
+
+.small-button {
+  font-size: 12;
+  padding: 8;
+  margin-bottom: 12;
+}
+
+.demo-label {
+  margin-bottom: 8;
+  padding: 8;
+  background-color: #f9f9f9;
+  border-radius: 4;
+}
+
+.demo-textfield {
+  margin-bottom: 8;
+  padding: 12;
+  border-width: 1;
+  border-color: #ccc;
+  border-radius: 4;
+  font-size: 16;
+}orariamente removido para debug */
+/* @import '@nativescript/theme/css/core.css'; */
+/* @import '@nativescript/theme/css/default.css'; */
+
+Button.-primary {
+  font-size: 18;
+}
