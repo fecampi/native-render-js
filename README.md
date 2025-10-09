@@ -1,80 +1,99 @@
-# Native Render JS
+# VideoPlayerStudy
 
-Este projeto é um estudo para a criação de uma biblioteca de UI inspirada no NativeScript, com ideias e conceitos também vindos do Phaser e do CreateJS.
+Projeto de estudo de NativeScript com player de vídeo em JavaScript puro, sem XML, usando `@nstudio/nativescript-exoplayer`.
 
-O objetivo é explorar padrões modernos de composição de componentes, layout flexível e integração de controles visuais, focando em modularidade e facilidade de uso para interfaces ricas em TypeScript/JavaScript.
+---
 
-## Principais características
-- Padrão de componentes inspirado no NativeScript
-- Layouts flexíveis e responsivos
-- Modularização e composição explícita
-- Inspiração em engines como Phaser e CreateJS para manipulação visual
+## 1. Pré-requisitos
 
-## Aviso
-Este repositório é experimental e serve para aprendizado e prototipação.
+Antes de rodar o projeto, você precisa ter instalado:
+
+- Node.js (recomenda-se LTS ou versão estável)
+- npm
+- NativeScript CLI
+- Java JDK (11 ou superior)
+- Android SDK e ferramentas de build
+- Emulador Android ou dispositivo físico
+
+---
+
+## 2. Configuração do ambiente Android (Linux/macOS)
+
+1. Defina o SDK do Android no seu `.zshrc` ou `.bashrc`:
+
+```bash
+export ANDROID_SDK_ROOT=$HOME/Android
+export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH
+```
+
+2. Recarregue as variáveis de ambiente:
+
+```bash
+source ~/.zshrc
+```
+
+3. Instale as ferramentas necessárias do SDK:
+
+```bash
+sdkmanager --install "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+```
+
+4. Verifique se as ferramentas estão acessíveis:
+
+```bash
+which sdkmanager
+which adb
+```
+
+---
+
+## 3. Criando e rodando o projeto NativeScript
+
+1. Criar o projeto (JavaScript puro):
+
+```bash
+ns create VideoPlayerStudy --js
+cd VideoPlayerStudy
+```
+
+2. Rodar o emulador Android:
+
+```bash
+emulator -list-avds      # lista os emuladores disponíveis
+emulator -avd Pixel34    # substitua "Pixel34" pelo seu AVD
+```
+
+3. Instalar o plugin de vídeo:
+
+```bash
+npm install @nstudio/nativescript-exoplayer
+```
 
 ---
 
 
-## Instalação
+## 5. Rodando o aplicativo
 
-Por enquanto, clone este repositório:
-```sh
-git clone git@github.com:fecampi/native-render-js.git
+No terminal:
+
+```bash
+ns run android
 ```
 
-## Uso Básico
+Ou, para iOS (apenas no macOS):
 
-## Exemplos de uso
-
-
-```typescript
-import { Application, Page, StackLayout, Text, Button, Slider, Video, AbsoluteLayout } from "native-render-core";
-
-// Layout vertical simples
-const layout = new StackLayout();
-layout.orientation = "vertical";
-layout.addChild(new Text("Bem-vindo!"));
-layout.addChild(new Button("Clique aqui"));
-
-// Player de vídeo com controles sobrepostos
-const absLayout = new AbsoluteLayout();
-absLayout.width = 1280;
-absLayout.height = 720;
-absLayout.backgroundColor = "#000";
-
-const video = new Video();
-video.src = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-video.width = 1280;
-video.height = 720;
-AbsoluteLayout.setLeft(video, 0);
-AbsoluteLayout.setTop(video, 0);
-absLayout.addChild(video);
-
-const controls = new StackLayout();
-controls.orientation = "horizontal";
-// Exemplo: posicionar controles na parte inferior central
-AbsoluteLayout.setLeft(controls, 0);
-AbsoluteLayout.setTop(controls, 640);
-controls.addChild(new Button("▶"));
-controls.addChild(new Slider());
-absLayout.addChild(controls);
-```
-const page = new Page();
-page.content = absLayout;
-Application.run({ create: () => page });
+```bash
+ns run ios
 ```
 
-## Componentes disponíveis
+---
 
-- StackLayout
-- AbsoluteLayout
-- Text
-- Button
-- Slider
-- Video
+## 6. Observações
 
+- Este projeto não usa XML, toda a UI é criada dinamicamente em JavaScript.
+- Usa o plugin moderno `@nstudio/nativescript-exoplayer` para reprodução de vídeos com ExoPlayer.
+- O ExoPlayer oferece melhor performance e recursos mais avançados que o plugin antigo.
+- Certifique-se de que o emulador esteja rodando antes de executar `ns run android`.
 
-## Licença
-MIT
+---
 

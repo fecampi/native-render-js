@@ -1,3 +1,19 @@
+# NativeScript specific
+hooks/
+platforms/
+node_modules/
+.migration_backup/
+
+# Ignore generated JavaScript files in app directory, but keep App_Resources
+app/**/*.js
+app/**/*.js.map
+!app/webpack.config.js
+!app/webpack.native.js
+# NÃO ignorar App_Resources - contém recursos nativos importantes
+!App_Resources/
+!App_Resources/**
+
+
 # Logs
 logs
 *.log
@@ -7,28 +23,75 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Build directories
+dist/
+dist-ssr/
+tmp/
+temp/
+build/
+.vite/
+
+# Android specific
+.gradle
+local.properties
+*.iml
+*.aab
+*.apk
+
+# iOS specific
+Pods/
+DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-# Build output
-build/
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# Env files
+# Environment files
 .env
 .env.*
+!.env.example
 
 # TypeScript
 *.tsbuildinfo
+
+# Testing and coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
