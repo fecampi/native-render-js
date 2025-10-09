@@ -1,5 +1,4 @@
 import { Component } from "./Component";
-import { focusTreeService } from "./focusTreeUtils";
 
 export class Page extends Component {
   constructor() {
@@ -9,6 +8,5 @@ export class Page extends Component {
 
   set content(child: Component) {
     this.element.appendChild(child.element);
-    focusTreeService.setup(child.element);
   }
 }
