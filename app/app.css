@@ -1,6 +1,4 @@
-﻿@import '@nativescript/theme/css/core.css';
-@import '@nativescript/theme/css/default.css';
-
+﻿
 Button.-primary {
   font-size: 18;
 }
@@ -71,9 +69,7 @@ Button.-primary {
   border-color: #ccc;
   border-radius: 4;
   font-size: 16;
-}orariamente removido para debug */
-/* @import '@nativescript/theme/css/core.css'; */
-/* @import '@nativescript/theme/css/default.css'; */
+}
 
 Button.-primary {
   font-size: 18;

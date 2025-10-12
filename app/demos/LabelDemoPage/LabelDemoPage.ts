@@ -1,4 +1,4 @@
-import { Page, Button, Label, StackLayout } from "@nativescript/core";
+import { Page, Button, Label, StackLayout, Color } from "@nativescript/core";
 import { Frame } from "@nativescript/core/ui/frame";
 
 export class LabelExamplePage {
@@ -6,35 +6,39 @@ export class LabelExamplePage {
     const page = new Page();
     const layout = new StackLayout();
     layout.style.padding = "20";
-    layout.style.backgroundColor = "#e3f2fd";
+    layout.style.backgroundColor = new Color("#e3f2fd");
 
-    const title = new Label("Exemplo: Label");
-    title.style.fontSize = "24";
+    const title = new Label();
+    title.text = "Exemplo: Label";
+    title.style.fontSize = 24;
     title.style.fontWeight = "bold";
-    title.style.color = "#1976D2";
-    title.style.marginBottom = "20";
+    title.style.color = new Color("#1976D2");
+    title.style.marginBottom = 20;
     title.style.textAlignment = "center";
 
-    const label1 = new Label("Este é um Label simples.");
-    label1.style.fontSize = "16";
-    label1.style.marginBottom = "10";
+    const label1 = new Label();
+    label1.text = "Este é um Label simples.";
+    label1.style.fontSize = 16;
+    label1.style.marginBottom = 10;
 
-    const label2 = new Label("Label com cor personalizada.");
-    label2.style.fontSize = "16";
-    label2.style.color = "#FF5722";
-    label2.style.marginBottom = "10";
+    const label2 = new Label();
+    label2.text = "Label com cor personalizada.";
+    label2.style.fontSize = 16;
+    label2.style.color = new Color("#FF5722");
+    label2.style.marginBottom = 10;
 
-    const label3 = new Label("Label alinhado à direita.");
-    label3.style.fontSize = "16";
+    const label3 = new Label();
+    label3.text = "Label alinhado à direita.";
+    label3.style.fontSize = 16;
     label3.style.textAlignment = "right";
-    label3.style.marginBottom = "30";
+    label3.style.marginBottom = 30;
 
     const btnBack = new Button();
     btnBack.text = "← Voltar ao Menu";
-    btnBack.style.backgroundColor = "#2196F3";
-    btnBack.style.color = "white";
-    btnBack.style.fontSize = "16";
-    btnBack.style.padding = "15";
+    btnBack.style.backgroundColor = new Color("#2196F3");
+    btnBack.style.color = new Color("white");
+    btnBack.style.fontSize = 16;
+    btnBack.style.padding = 15;
     btnBack.on("tap", () => Frame.topmost().goBack());
 
     layout.addChild(title);
@@ -44,6 +48,7 @@ export class LabelExamplePage {
     layout.addChild(btnBack);
 
     page.content = layout;
+    page.actionBarHidden = true;
     return page;
   }
 }

@@ -1,51 +1,58 @@
-// Mock para Frame no ambiente web
+import { Page } from "../Page";
+import  type  {NavigationEntry} from "./NavigationEntry"
+
 export class Frame {
   private static _topmost: Frame | null = null;
+  private _stack: Page[] = [];
+  private _root: HTMLElement;
 
-  static get topmost(): Frame {
-    if (!Frame._topmost) {
-      Frame._topmost = new Frame();
-    }
+  constructor(root: HTMLElement = document.body) {
+    this._root = root;
+    Frame._topmost = this;
+  }
+
+  // Retorna o frame principal
+  static topmost(): Frame | null {
     return Frame._topmost;
   }
 
-  navigate(entry: any) {
-    if (entry.moduleName) {
-      console.log(`Navegando para ${entry.moduleName}`);
-      // Implemente carregamento dinâmico se necessário
-    } else if (entry.create) {
-      const page = entry.create();
-      console.log('Página criada:', page);
 
-      // Certifica que page.content é um HTMLElement
-      if (page.content && page.content instanceof HTMLElement) {
-        this.renderPage(page);
-      } else if (page.content && page.content.element instanceof HTMLElement) {
-        this.renderPage({ content: page.content.element });
-      } else {
-        console.warn('O page.content não é um HTMLElement válido:', page.content);
-      }
+  // Navega para uma nova página ou NavigationEntry
+  navigate<T extends Page | NavigationEntry>(page: T) {
+    if (this._stack.length > 0) {
+      const current = this._stack[this._stack.length - 1];
+      this._root.removeChild(current.element);
     }
-  }
 
-  goBack() {
-    if (window.history.length > 1) {
-      window.history.back();
+    let pageToPush: Page;
+    let element: HTMLElement;
+
+    if (page instanceof Page) {
+      pageToPush = page;
+      element = page.element;
+    } else if (typeof page.create === "function") {
+      const created = page.create();
+      element = created.element;
+      pageToPush = created as Page;
     } else {
-      console.log('Não há página anterior');
+      throw new Error("Parâmetro inválido para navegação: deve ser Page ou NavigationEntry");
     }
+
+    this._root.appendChild(element);
+    this._stack.push(pageToPush);
   }
 
-  private renderPage(page: { content: HTMLElement }) {
-    const body = document.body;
-    body.innerHTML = '';
-    body.appendChild(page.content);
+  // Volta para a página anterior
+  goBack() {
+    if (this._stack.length < 2) return;
+    const current = this._stack.pop()!;
+    this._root.removeChild(current.element);
+    const previous = this._stack[this._stack.length - 1];
+    this._root.appendChild(previous.element);
+  }
+
+  // Retorna a página atual
+  get currentPage(): Page | undefined {
+    return this._stack[this._stack.length - 1];
   }
 }
-
-export type NavigationEntry = {
-  moduleName?: string;
-  create?: () => any;
-  animated?: boolean;
-  transition?: { name: string };
-};

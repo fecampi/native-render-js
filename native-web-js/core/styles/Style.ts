@@ -1,4 +1,4 @@
-export type Color = string;
+import { Color } from "../Color";
 
 export class Style {
   private element: HTMLElement;
@@ -7,12 +7,22 @@ export class Style {
     this.element = element;
   }
 
+  // --- Texto / Layout ---
+  set whiteSpace(value: "normal" | "nowrap" | "pre" | "pre-wrap" | "pre-line") {
+    this.element.style.whiteSpace = value;
+  }
+  get whiteSpace(): string {
+    return this.element.style.whiteSpace || "normal";
+  }
+
   // --- Cor e fundo ---
   set color(value: Color | string) {
-    this.element.style.color = value;
+    this.element.style.color =
+      typeof value === "string" ? value : value.toString();
   }
   set backgroundColor(value: Color | string) {
-    this.element.style.backgroundColor = value;
+    this.element.style.backgroundColor =
+      typeof value === "string" ? value : value.toString();
   }
 
   // --- Texto ---
@@ -22,6 +32,17 @@ export class Style {
   }
   set fontWeight(value: string | number) {
     this.element.style.fontWeight = value.toString();
+  }
+  set fontStyle(value: "normal" | "italic" | "oblique" | string) {
+    this.element.style.fontStyle = value;
+  }
+  set lineHeight(value: string | number) {
+    this.element.style.lineHeight =
+      typeof value === "number" ? `${value}px` : value;
+  }
+  set letterSpacing(value: string | number) {
+    this.element.style.letterSpacing =
+      typeof value === "number" ? `${value}px` : value;
   }
   set textAlign(value: "left" | "right" | "center" | "justify") {
     this.element.style.textAlign = value;
@@ -52,6 +73,11 @@ export class Style {
     this.element.style.margin =
       typeof value === "number" ? `${value}px` : value;
   }
+  set spacing(value: string | number) {
+    const spacingValue = typeof value === "number" ? `${value}px` : value;
+    this.element.style.padding = spacingValue;
+    this.element.style.margin = spacingValue;
+  }
   set borderRadius(value: string | number) {
     this.element.style.borderRadius =
       typeof value === "number" ? `${value}px` : value;
@@ -69,5 +95,29 @@ export class Style {
   }
   set cursor(value: string) {
     this.element.style.cursor = value;
+  }
+  set overflow(value: "visible" | "hidden" | "scroll" | "auto") {
+    this.element.style.overflow = value;
+  }
+  get overflow(): string {
+    return this.element.style.overflow;
+  }
+
+  // --- Flex Layout ---
+  set flexDirection(value: string) {
+    this.element.style.flexDirection = value;
+  }
+  set alignItems(value: string) {
+    this.element.style.alignItems = value;
+  }
+  set justifyContent(value: string) {
+    this.element.style.justifyContent = value;
+  }
+
+  get flexShrink(): string {
+    return this.element.style.flexShrink;
+  }
+  set flexShrink(value: string) {
+    this.element.style.flexShrink = value;
   }
 }
