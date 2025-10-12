@@ -20,11 +20,7 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-    "baseUrl": "./app",
-    "paths": {
-      "@nativescript/core": ["../core/web/index"]
-    }
+    "noUncheckedSideEffectImports": true
   },
-  "include": ["app/**/*.ts", "app/**/*.js"]
+  "include": ["src"]
 }

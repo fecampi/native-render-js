@@ -1,0 +1,106 @@
+/* Botão primário */
+.button-primary {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: #fff;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+.link-primary {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.25s;
+}
+
+/* Remove padding se o link contém só uma imagem */
+.link-primary:has(img:only-child) {
+  padding: 0;
+  background: none;
+  border: none;
+}
+}
+.button-primary:hover {
+  border-color: #646cff;
+}
+.link-primary:hover {
+  border-color: #646cff;
+}
+.button-primary:focus,
+.button-primary:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+.link-primary:focus,
+.link-primary:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Imagem logo */
+.image-logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.image-logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.image-logo-vanilla:hover {
+  filter: drop-shadow(0 0 2em #3178c6aa);
+}
+
+/* Card */
+.card {
+  padding: 2em;
+}
+
+/* Texto secundário */
+.text-muted {
+  color: #888;
+}
+
+
