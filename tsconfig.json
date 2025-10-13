@@ -21,9 +21,10 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "baseUrl": "./app",
+    "baseUrl": ".",
     "paths": {
-      "@nativescript/core": ["../core/web/index"]
+      "@native-web-js/core": ["native-web-js/core"],
+      "@native-web-js/core/*": ["native-web-js/core/*"]
     }
   },
   "include": ["app/**/*.ts", "app/**/*.js"]

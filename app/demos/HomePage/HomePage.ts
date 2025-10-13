@@ -1,6 +1,6 @@
-import { Page, Button, Label, StackLayout } from "@nativescript/core";
-import { Frame } from "@nativescript/core/ui/frame";
-import type { NavigationEntry } from "@nativescript/core/ui/frame";
+import { Page, Button, Label, StackLayout } from "@native-web-js/core";
+import { Frame } from "@native-web-js/core/ui/frame";
+import type { NavigationEntry } from "@native-web-js/core/ui/frame";
 import { LabelExamplePage } from "../LabelDemoPage/LabelDemoPage";
 import { ButtonExamplePage } from "../ButtonDemoPage/ButtonDemoPage";
 import { VideoDemoPage } from "../VideoHomePage/VideoHomePage";
@@ -29,7 +29,7 @@ export class HomePage {
         animated: true,
         transition: { name: "slide" },
       };
-      Frame.topmost().navigate(entry);
+      Frame.topmost()?.navigate(entry);
     });
 
     const btnButton = new Button();
@@ -41,7 +41,7 @@ export class HomePage {
         animated: true,
         transition: { name: "fade" },
       };
-      Frame.topmost().navigate(entry);
+      Frame.topmost()?.navigate(entry);
     });
 
     const btnVideo = new Button();
@@ -53,7 +53,7 @@ export class HomePage {
         animated: true,
         transition: { name: "fade" },
       };
-      Frame.topmost().navigate(entry);
+      Frame.topmost()?.navigate(entry);
     });
 
     layout.addChild(title);
@@ -62,7 +62,6 @@ export class HomePage {
     layout.addChild(btnButton);
     layout.addChild(btnVideo);
     page.content = layout;
-    page.actionBarHidden = true;
     page.addCssFile("~/demos/HomePage/HomePage.css");
     return page;
   }

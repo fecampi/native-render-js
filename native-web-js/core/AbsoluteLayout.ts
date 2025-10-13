@@ -1,10 +1,11 @@
 
-import { Component } from './Component';
+import { View} from "./View";
 
-export class AbsoluteLayout extends Component {
+
+export class AbsoluteLayout extends View {
   constructor() {
     super("div");
-    this.element.style.position = "relative"; 
+    this.element.style.position = "relative";
     this.element.style.overflow = "hidden";
     this.element.style.width = "1280px";
     this.element.style.height = "720px";

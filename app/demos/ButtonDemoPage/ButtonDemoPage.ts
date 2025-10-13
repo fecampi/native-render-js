@@ -1,5 +1,5 @@
-import { Page, Button, Label, StackLayout, Color } from "@nativescript/core";
-import { Frame } from "@nativescript/core/ui/frame";
+import { Page, Button, Label, StackLayout, Color } from "@native-web-js/core";
+import { Frame } from "@native-web-js/core/ui/frame";
 
 export class ButtonExamplePage {
   create(): Page {
@@ -49,7 +49,7 @@ export class ButtonExamplePage {
     btnBack.style.color = new Color("white");
     btnBack.style.fontSize = 16;
     btnBack.style.padding = "15";
-    btnBack.on("tap", () => Frame.topmost().goBack());
+    btnBack.on("tap", () => Frame.topmost()?.goBack());
 
     layout.addChild(title);
     layout.addChild(button1);
@@ -57,7 +57,6 @@ export class ButtonExamplePage {
     layout.addChild(button3);
     layout.addChild(btnBack);
     page.content = layout;
-    page.actionBarHidden = true;
     return page;
   }
 }

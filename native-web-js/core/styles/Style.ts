@@ -73,6 +73,14 @@ export class Style {
     this.element.style.margin =
       typeof value === "number" ? `${value}px` : value;
   }
+  set marginBottom(value: string | number) {
+    this.element.style.marginBottom =
+      typeof value === "number" ? `${value}px` : value;
+  }
+  set textAlignment(value: "left" | "right" | "center" | "justify") {
+    this.element.style.textAlign = value;
+  }
+  //
   set spacing(value: string | number) {
     const spacingValue = typeof value === "number" ? `${value}px` : value;
     this.element.style.padding = spacingValue;

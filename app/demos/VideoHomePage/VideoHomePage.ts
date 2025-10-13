@@ -6,7 +6,7 @@ import {
   Video,
   AbsoluteLayout,
   Page,
-} from "@nativescript/core";
+} from "@native-web-js/core";
 import  "./VideoDemoPage.css"
 
 export class VideoDemoPage {
@@ -288,8 +288,8 @@ export class VideoDemoPage {
 
     // Atualizar UI
     function updatePlayUI() {
-      playPauseBtn.Label = isPlaying ? "❚❚" : "▶";
-      centerPlayBtn.Label = isPlaying ? "❚❚" : "▶";
+      playPauseBtn.text = isPlaying ? "❚❚" : "▶";
+      centerPlayBtn.text = isPlaying ? "❚❚" : "▶";
       updateCenterPlayBtn();
     }
 
@@ -298,8 +298,8 @@ export class VideoDemoPage {
       const cur = vid.currentTime || 0;
       const dur = vid.duration || 0;
       progressSlider.value = dur ? (cur / dur) * 100 : 0;
-      currentTimeLabel.Label = formatTime(cur);
-      durationLabel.Label = formatTime(dur);
+      currentTimeLabel.text = formatTime(cur);
+      durationLabel.text = formatTime(dur);
 
       // Atualiza barra visual
       progressFill.element.style.width = progressSlider.value + "%";
@@ -344,7 +344,7 @@ export class VideoDemoPage {
         mediaControl.element.style.height = "100vh";
         video.element.style.width = "100vw";
         video.element.style.height = "100vh";
-        fullscreenBtn.Label = "\uf066"; // fa-compress
+        fullscreenBtn.text = "\uf066"; // fa-compress
       } else {
         root.width = PLAYER_WIDTH;
         root.height = PLAYER_HEIGHT;
@@ -356,7 +356,7 @@ export class VideoDemoPage {
         mediaControl.element.style.height = PLAYER_HEIGHT + "px";
         video.element.style.width = PLAYER_WIDTH + "px";
         video.element.style.height = PLAYER_HEIGHT + "px";
-        fullscreenBtn.Label = "\uf065"; // fa-expand
+        fullscreenBtn.text= "\uf065"; // fa-expand
       }
     }
 
@@ -382,7 +382,7 @@ export class VideoDemoPage {
       }
     });
 
-    progressSlider.on("valueChange", (val) => {
+    progressSlider.on("valueChange", (val: { object: { value: any; }; }) => {
       const vid = video.element as HTMLVideoElement;
       const sliderValue = val.object.value;
       // Atualiza barra visual e thumb imediatamente
@@ -457,10 +457,8 @@ export class VideoDemoPage {
     settingsBtn.on("tap", openSettings);
 
     layout.addChild(title);
-
-    page.content = root;
-    page.actionBarHidden = true;
     page.addCssFile("~/demos/VideoDemoPage/VideoDemoPage.css.css");
+    page.content = root;
     return page;
   }
 }

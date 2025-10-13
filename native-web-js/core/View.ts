@@ -8,7 +8,8 @@ type GestureEvent =
   | "doubleTap"
   | "touch"
   | "loaded"
-  | "unloaded";
+  | "unloaded"
+  | "valueChange";
 
 export abstract class View {
   css: string = "";
@@ -29,14 +30,16 @@ export abstract class View {
   private _cssLink: HTMLLinkElement | null = null;
 
   addCssFile(cssPath: string) {
-  console.log('[addCssFile] Iniciando importação do CSS:', cssPath);
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = cssPath;
-  link.onload = () => console.log('[addCssFile] CSS carregado com sucesso:', cssPath);
-  link.onerror = () => console.error('[addCssFile] Falha ao carregar CSS:', cssPath);
-  document.head.appendChild(link);
-  console.log('[addCssFile] <link> inserido no head:', link);
+    console.log("[addCssFile] Iniciando importação do CSS:", cssPath);
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = cssPath;
+    link.onload = () =>
+      console.log("[addCssFile] CSS carregado com sucesso:", cssPath);
+    link.onerror = () =>
+      console.error("[addCssFile] Falha ao carregar CSS:", cssPath);
+    document.head.appendChild(link);
+    console.log("[addCssFile] <link> inserido no head:", link);
   }
 
   // ===== ÁRVORE =====
@@ -95,7 +98,7 @@ export abstract class View {
     return this;
   }
   setStyles(styles: { [k: string]: string | number }) {
-    for (const k in styles) this.setStyle(k, styles[k]);
+    Object.assign(this.element.style, styles);
     return this;
   }
 

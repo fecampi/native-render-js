@@ -1,7 +1,9 @@
-import { Application } from "@nativescript/core";
-import { Frame } from "@nativescript/core/ui/frame";
-import type { NavigationEntry } from "@nativescript/core/ui/frame";
+import { Application } from "@native-web-js/core";
+import { Frame} from "@native-web-js/core/ui/frame"
+import type { NavigationEntry } from "@native-web-js/core/ui/frame";
 import { HomePage } from "./demos/HomePage/HomePage";
+
+
 
 // ===== INICIALIZAÇÃO DO APP =====
 Application.run({

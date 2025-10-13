@@ -1,6 +1,6 @@
-import { Component } from "./Component";
+import { View} from "./View"
 
-export class Button extends Component {
+export class Button extends View {
   private _text: string = "";
   private _textWrap: boolean = false;
   private _isEnabled: boolean = true;

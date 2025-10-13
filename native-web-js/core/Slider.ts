@@ -1,4 +1,4 @@
-import { Component } from "./Component";
+import { View } from "./View";
 
 export interface SliderOptions {
   minValue?: number;
@@ -8,7 +8,7 @@ export interface SliderOptions {
   width?: string | number;
 }
 
-export class Slider extends Component {
+export class Slider extends View {
   private _minValue: number = 0;
   private _maxValue: number = 100;
   private _value: number = 0;
@@ -37,7 +37,6 @@ export class Slider extends Component {
       }
       if (options.width !== undefined) this.style.width = options.width;
     }
-
 
     // Emite valueChange em tempo real (input)
     inputElement.addEventListener("input", () => {
@@ -69,7 +68,7 @@ export class Slider extends Component {
   get value(): number {
     return this._value;
   }
-  set value(val: number) {;
+  set value(val: number) {
     this._value = val;
     (this.element as HTMLInputElement).value = String(val);
   }
@@ -80,15 +79,6 @@ export class Slider extends Component {
   set step(val: number) {
     this._step = val;
     this.element.setAttribute("step", String(val));
-  }
-
-  on(
-    eventName: "valueChange",
-    callback: (args: { object: { value: number } }) => void
-  ): void {
-    if (eventName === "valueChange") {
-      this._onValueChange = callback;
-    }
   }
 
   private emit(eventName: string): void {

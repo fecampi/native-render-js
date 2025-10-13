@@ -1,5 +1,12 @@
 import { Page } from "../Page";
-import  type  {NavigationEntry} from "./NavigationEntry"
+
+
+export interface NavigationEntry {
+  create(): { element: HTMLElement };
+  animated?: boolean;
+  transition?: { name: string };
+}
+
 
 export class Frame {
   private static _topmost: Frame | null = null;

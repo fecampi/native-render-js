@@ -10,14 +10,7 @@
     "preview": "vite preview",
     "build:lib": "esbuild core/web/index.ts --bundle --platform=node --format=esm --outfile=App_Resources/lib/index.js --sourcemap && tsc --emitDeclarationOnly --declaration --declarationDir App_Resources/lib"
   },
-  "dependencies": {
-    "@nativescript/core": "~8.9.0",
-    "@nativescript/theme": "^3.1.0",
-    "@nstudio/nativescript-exoplayer": "^6.2.0"
-  },
   "devDependencies": {
-    "@nativescript/android": "8.9.2",
-    "@nativescript/webpack": "~5.0.0",
     "dts-bundle-generator": "^9.5.1",
     "typescript": "~5.8.3",
     "vite": "^7.1.7"
